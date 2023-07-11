@@ -1,0 +1,48 @@
+.form {
+  background-color: rgb(143, 182, 255);
+  border-radius: 20px;
+  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  gap: 10px;
+  padding: 20px;
+  font-size: medium;
+  font-weight: 600;
+}
+
+.typesform {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+
+  & input {
+    padding: auto;
+    width: auto;
+  }
+}
+
+.typesform > p {
+  margin: 0;
+  padding: 0;
+}
+
+.typesform > div {
+  display: grid;
+  grid-template: repeat(10, auto) / repeat(2, auto);
+  column-gap: 30px;
+  row-gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.typesform > div > label {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: space-between;
+}

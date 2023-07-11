@@ -33,12 +33,19 @@ module.exports = (sequelize) => {
       },
       speed: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       height: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       weight: {
         type: DataTypes.STRING,
+        allowNull: true,
+      },
+      createDb: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
       },
     },
     {

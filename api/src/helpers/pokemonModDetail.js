@@ -1,9 +1,15 @@
+const { pokemonModDetailType } = require("./pokemonModDetailType");
+
 module.exports = {
-  parsePokemon: (data) => {
+  pokemonModDetail: (data) => {
     const {
       id,
       name,
-      sprites: { front_default: image },
+      sprites: {
+        other: {
+          dream_world: { front_default: image },
+        },
+      },
       stats: [
         { base_stat: hp },
         { base_stat: attack },
@@ -16,6 +22,7 @@ module.exports = {
       weight,
       types,
     } = data;
+
     return {
       id,
       name,
@@ -26,7 +33,7 @@ module.exports = {
       speed,
       height,
       weight,
-      types,
+      types: pokemonModDetailType(types),
     };
   },
 };
