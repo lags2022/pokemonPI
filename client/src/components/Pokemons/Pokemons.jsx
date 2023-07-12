@@ -26,19 +26,21 @@ const Pokemons = () => {
 
   return (
     <div className={styles.pokemons}>
-      <ul>
-        {pokemonsPagination.length
-          ? pokemonsPagination.map((p) => (
-              <Pokemon
-                key={p.id}
-                id={p.id}
-                name={p.name}
-                image={p.image}
-                types={p.types}
-              />
-            ))
-          : null}
-      </ul>
+      {pokemonsPagination.length ? (
+        <ul>
+          {pokemonsPagination.map((p) => (
+            <Pokemon
+              key={p.id}
+              id={p.id}
+              name={p.name}
+              image={p.image}
+              types={p.types}
+            />
+          ))}
+        </ul>
+      ) : (
+        <img src="/pikachu_squeleton.gif" alt="" />
+      )}
       <Pagination
         postsPerPage={postsPerPage}
         totalPosts={pokemonsFilter.length}

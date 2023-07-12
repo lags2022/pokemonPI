@@ -40,11 +40,7 @@ router.post("/", async (req, res) => {
     const { name, image, hp, attack, defense, speed, height, weight, types } =
       req.body;
 
-    if (
-      ![name, image, hp, attack, defense, speed, height, weight, types].every(
-        Boolean
-      )
-    )
+    if (![name, image, hp, attack, defense, types].every(Boolean))
       throw new Error("Data missing");
 
     const pokemon = await createPokemon(req.body);

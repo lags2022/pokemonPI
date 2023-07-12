@@ -5,12 +5,17 @@ import { getFilter } from "../../actions/getFilter";
 import axios from "axios";
 import styles from "./FormPage.module.css";
 import { useNavigate } from "react-router-dom";
+import Notification from "../Notification/Notification";
 
 const FormPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [showTypes, setShowTypes] = useState([]);
-  const [form, setform] = useState({
+  const [showNotification, setShowNotification] = useState(false);
+  const [messageError, setMessageError] = useState(null);
+  const [showMessageStatus, setShowMessageStatus] = useState(false);
+
+  const INITIAL_FORM = {
     name: "",
     image: "",
     hp: 0,
@@ -20,7 +25,9 @@ const FormPage = () => {
     height: 0,
     weight: 0,
     types: [],
-  });
+  };
+
+  const [form, setform] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({
     name: "",
     image: "",
@@ -39,10 +46,28 @@ const FormPage = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
-    axios
-      .post("http://localhost:3001/pokemons", form)
-      .then(({ data }) => console.log(data));
+    const { name, image, hp, attack, defense, speed, height, weight, types } =
+      errors;
+    if (
+      ![name, image, hp, attack, defense, speed, height, weight, types].some(
+        Boolean
+      ) &&
+      form.types.length
+    ) {
+      setLoading(true);
+      axios
+        .post("http://localhost:3001/pokemons", form)
+        .catch((error) => setMessageError(error.message))
+        .finally(() => {
+          setLoading(false);
+          setShowMessageStatus(true);
+          setTimeout(() => {
+            setShowMessageStatus(false);
+          }, 4000);
+          setShowNotification(true);
+        });
+      setform(INITIAL_FORM);
+    }
   };
 
   const handleChangeType = (evt) => {
@@ -95,8 +120,15 @@ const FormPage = () => {
         justifyContent: "center",
         alignContent: "center",
         gap: "10px",
+        position: "relative",
       }}
     >
+      {showNotification && (
+        <Notification
+          message={messageError}
+          showMessageStatus={showMessageStatus}
+        />
+      )}
       <h1 style={{ margin: "10px auto" }}>Create Pokemon</h1>
       <form className={styles.form} onSubmit={handleSubmit}>
         <div
@@ -104,126 +136,121 @@ const FormPage = () => {
             display: "flex",
             justifyContent: "center",
             alignContent: "center",
-            gap: "10px",
+            gap: "30px",
           }}
         >
-          <div>
-            <div>
-              <label htmlFor="name">
-                Name:
-                <input
-                  type="text"
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  disabled={loading}
-                />
-              </label>
-              <div>{errors.name && <ErrorForm formError={errors.name} />}</div>
-            </div>
-            <div>
-              <label htmlFor="image">
-                Image:
-                <input
-                  type="text"
-                  name="image"
-                  value={form.image}
-                  onChange={handleChange}
-                  disabled={loading}
-                />
-              </label>
-              <div>
+          <div className={styles.inputform}>
+            <label htmlFor="name">
+              <span>Name:</span>
+              <input
+                type="text"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                disabled={loading}
+              />
+              <div className={styles.notivalerror}>
+                {errors.name && <ErrorForm formError={errors.name} />}
+              </div>
+            </label>
+
+            <label htmlFor="image">
+              <span>Image:</span>
+              <input
+                type="text"
+                name="image"
+                value={form.image}
+                onChange={handleChange}
+                disabled={loading}
+              />
+              <div className={styles.notivalerror}>
                 {errors.image && <ErrorForm formError={errors.image} />}
               </div>
-            </div>
-            <div>
-              <label htmlFor="hp">
-                Hp:
-                <input
-                  type="text"
-                  name="hp"
-                  value={form.hp}
-                  onChange={handleChange}
-                  disabled={loading}
-                />
-              </label>
-              <div>{errors.hp && <ErrorForm formError={errors.hp} />}</div>
-            </div>
-            <div>
-              <label htmlFor="attack">
-                Attack:
-                <input
-                  type="text"
-                  name="attack"
-                  value={form.attack}
-                  onChange={handleChange}
-                  disabled={loading}
-                />
-              </label>
-              <div>
+            </label>
+
+            <label htmlFor="hp">
+              <span>Hp:</span>
+              <input
+                type="text"
+                name="hp"
+                value={form.hp}
+                onChange={handleChange}
+                disabled={loading}
+              />
+              <div className={styles.notivalerror}>
+                {errors.hp && <ErrorForm formError={errors.hp} />}
+              </div>
+            </label>
+
+            <label htmlFor="attack">
+              <span>Attack:</span>
+              <input
+                type="text"
+                name="attack"
+                value={form.attack}
+                onChange={handleChange}
+                disabled={loading}
+              />
+              <div className={styles.notivalerror}>
                 {errors.attack && <ErrorForm formError={errors.attack} />}
               </div>
-            </div>
-            <div>
-              <label htmlFor="defense">
-                Defense:
-                <input
-                  type="text"
-                  name="defense"
-                  value={form.defense}
-                  onChange={handleChange}
-                  disabled={loading}
-                />
-              </label>
-              <div>
+            </label>
+
+            <label htmlFor="defense">
+              <span>Defense:</span>
+              <input
+                type="text"
+                name="defense"
+                value={form.defense}
+                onChange={handleChange}
+                disabled={loading}
+              />
+              <div className={styles.notivalerror}>
                 {errors.defense && <ErrorForm formError={errors.defense} />}
               </div>
-            </div>
-            <div>
-              <label htmlFor="speed">
-                Speed:
-                <input
-                  type="text"
-                  name="speed"
-                  value={form.speed}
-                  onChange={handleChange}
-                  disabled={loading}
-                />
-              </label>
-              <div>
+            </label>
+
+            <label htmlFor="speed">
+              <span>Speed:</span>
+              <input
+                type="text"
+                name="speed"
+                value={form.speed}
+                onChange={handleChange}
+                disabled={loading}
+              />
+              <div className={styles.notivalerror}>
                 {errors.speed && <ErrorForm formError={errors.speed} />}
               </div>
-            </div>
-            <div>
-              <label htmlFor="height">
-                Height:
-                <input
-                  type="text"
-                  name="height"
-                  value={form.height}
-                  onChange={handleChange}
-                  disabled={loading}
-                />
-              </label>
-              <div>
+            </label>
+
+            <label htmlFor="height">
+              <span>Height:</span>
+              <input
+                type="text"
+                name="height"
+                value={form.height}
+                onChange={handleChange}
+                disabled={loading}
+              />
+              <div className={styles.notivalerror}>
                 {errors.height && <ErrorForm formError={errors.height} />}
               </div>
-            </div>
-            <div>
-              <label htmlFor="weight">
-                Weight:
-                <input
-                  type="text"
-                  name="weight"
-                  value={form.weight}
-                  onChange={handleChange}
-                  disabled={loading}
-                />
-              </label>
-              <div>
+            </label>
+
+            <label htmlFor="weight">
+              <span>Weight:</span>
+              <input
+                type="text"
+                name="weight"
+                value={form.weight}
+                onChange={handleChange}
+                disabled={loading}
+              />
+              <div className={styles.notivalerror}>
                 {errors.weight && <ErrorForm formError={errors.weight} />}
               </div>
-            </div>
+            </label>
           </div>
 
           <div className={styles.typesform}>
@@ -236,23 +263,50 @@ const FormPage = () => {
                     id={t.id}
                     type="checkbox"
                     name={t.name}
+                    value={
+                      form.types[form.types.findIndex((type) => type === t.id)]
+                    }
+                    checked={form.types.includes(t.id)}
                     onChange={handleChangeType}
                     disabled={loading}
                   />
                 </label>
               ))}
             </div>
-            <div style={{ display: "relative" }}>
+            <div style={{ position: "absolute", bottom: "60px" }}>
               {errors.types && <ErrorForm formError={errors.types} />}
             </div>
           </div>
         </div>
-        <div style={{ display: "flex", gap: "10px" }}>
-          <button type="button" onClick={() => navigate("/home")}>
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            justifyContent: "space-around",
+          }}
+        >
+          <button
+            type="button"
+            disabled={loading}
+            className={loading ? styles.blocked : ""}
+            onClick={() => navigate("/home")}
+          >
             Back
           </button>
-          <button type="submit" disabled={loading}>
+          <button
+            type="submit"
+            disabled={loading}
+            className={loading ? styles.blocked : ""}
+          >
             Create Pokemon
+          </button>
+          <button
+            type="button"
+            disabled={loading}
+            onClick={() => setform(INITIAL_FORM)}
+            className={loading ? styles.blocked : ""}
+          >
+            Clear
           </button>
         </div>
       </form>

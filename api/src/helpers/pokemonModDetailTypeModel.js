@@ -6,7 +6,6 @@ module.exports = async (types, Model) => {
         name: type,
       },
     });
-    console.log(typeSearch);
     if (typeSearch) newArray.push(typeSearch);
   }
   return newArray;

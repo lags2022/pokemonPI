@@ -1,0 +1,9 @@
+.shownotivalerror {
+  margin: 0;
+  padding: 0;
+  color: rgb(255, 79, 79);
+  font-weight: 500;
+  font-size: small;
+  border: 2px solid red;
+  background-color: white;
+}

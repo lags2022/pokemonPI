@@ -7,10 +7,24 @@
   align-items: center;
   justify-content: center;
   margin: auto;
-  gap: 10px;
+  gap: 30px;
   padding: 20px;
   font-size: medium;
   font-weight: 600;
+}
+
+.inputform {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inputform > label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  position: relative;
 }
 
 .typesform {
@@ -38,6 +52,7 @@
   row-gap: 10px;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .typesform > div > label {
@@ -45,4 +60,32 @@
   gap: 4px;
   align-items: center;
   justify-content: space-between;
+}
+
+.typesform > div > label > input {
+  outline: none;
+  border: none;
+}
+
+.blocked {
+  cursor: not-allowed;
+  background-color: rgb(128, 128, 128);
+}
+
+.blocked:hover {
+  background-image: linear-gradient(
+    transparent,
+    rgb(85, 85, 85) 40%,
+    rgba(211, 211, 211, 0.911)
+  );
+}
+
+.notivalerror {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 14em;
+  top: 75%;
+  right: 0;
 }

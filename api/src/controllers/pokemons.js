@@ -29,7 +29,6 @@ const getAllPokemons = async () => {
       },
     });
 
-    console.log(AllPokemonsDb);
     return [...dataPokemons, ...AllPokemonsDb];
   } catch (error) {
     throw new Error(error.message);
@@ -115,27 +114,32 @@ const createPokemon = async ({
   weight,
   types,
 }) => {
-  const newPokemon = await Pokemon.create({
-    name,
-    image,
-    hp,
-    attack,
-    defense,
-    speed,
-    height,
-    weight,
-    createDb: true,
-  });
-  await newPokemon.addTypes(types);
-  const pokemonWithTypes = await Pokemon.findByPk(newPokemon.id, {
-    include: {
-      model: Type,
-      through: {
-        attributes: [],
+  try {
+    const newPokemon = await Pokemon.create({
+      name,
+      image,
+      hp,
+      attack,
+      defense,
+      speed,
+      height,
+      weight,
+      createDb: true,
+    });
+    await newPokemon.addTypes(types);
+    const pokemonWithTypes = await Pokemon.findByPk(newPokemon.id, {
+      include: {
+        model: Type,
+        through: {
+          attributes: [],
+        },
       },
-    },
-  });
-  return pokemonWithTypes;
+    });
+    return pokemonWithTypes;
+  } catch (error) {
+    // throw new Error("Error created Pokemon");
+    throw new Error(error.message);
+  }
 };
 
 module.exports = {
