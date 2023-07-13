@@ -26,7 +26,10 @@ export const getPokemonQuery = (query) => {
         payload: data,
       });
     } catch (error) {
-      throw new Error(error.message);
+      return dispatch({
+        type: GETPOKEMONQUERY,
+        payload: [],
+      });
     }
   };
 };

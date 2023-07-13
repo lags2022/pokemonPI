@@ -6,6 +6,8 @@ import axios from "axios";
 import styles from "./FormPage.module.css";
 import { useNavigate } from "react-router-dom";
 import Notification from "../Notification/Notification";
+import { useDispatch } from "react-redux";
+import { getPokemons } from "../../redux/actions_creators";
 
 const FormPage = () => {
   const navigate = useNavigate();
@@ -14,6 +16,7 @@ const FormPage = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [messageError, setMessageError] = useState(null);
   const [showMessageStatus, setShowMessageStatus] = useState(false);
+  const dispatch = useDispatch();
 
   const INITIAL_FORM = {
     name: "",
@@ -67,6 +70,7 @@ const FormPage = () => {
           setShowNotification(true);
         });
       setform(INITIAL_FORM);
+      dispatch(getPokemons());
     }
   };
 

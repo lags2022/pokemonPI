@@ -3,6 +3,7 @@ import { order } from "../utils/order";
 const INITIAL_VALUES = {
   pokemonsAll: [],
   pokemonsFilter: [],
+  pagination: 1,
 };
 
 export const reducer = (state = INITIAL_VALUES, actions) => {
