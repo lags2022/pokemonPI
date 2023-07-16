@@ -25,8 +25,8 @@
 
 .divimg2 {
   display: grid;
-  grid-template-columns: 1fr auto auto auto;
-  align-items: center;
+  grid-template-columns: 1fr auto auto;
+  align-items: flex-start;
   justify-content: center;
   gap: 10px;
 }
@@ -43,8 +43,13 @@
   }
 }
 
+.divimg2 > div:nth-child(2),
+.divimg2 > div:nth-child(3) {
+  padding-top: 20px;
+}
+
 .divimg2 > div:nth-child(2) > p,
-.divimg2 > div:nth-child(4) > p {
+.divimg2 > div:nth-child(3) > p {
   margin: 10px 10px;
   font-size: medium;
   font-weight: 600;

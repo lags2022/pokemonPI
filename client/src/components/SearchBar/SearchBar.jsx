@@ -14,7 +14,7 @@ const SearchBar = () => {
     <div className={styles.search}>
       <label htmlFor="search">
         <input
-          className="scale1"
+          className="fadein"
           type="text"
           name="search"
           onChange={handleChange}
@@ -23,7 +23,7 @@ const SearchBar = () => {
         />
       </label>
       <button
-        className="scale1"
+        className="fadein"
         onClick={() => dispatch(getPokemonQuery(search))}
       >
         Search

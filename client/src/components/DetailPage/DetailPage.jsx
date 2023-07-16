@@ -3,19 +3,19 @@ import { getDetail } from "../../actions/getDetail";
 import { useEffect, useState } from "react";
 import styles from "./DetailPage.module.css";
 import { useNavigate } from "react-router-dom";
+import { flushSync } from "react-dom";
+import SkeletonTitle from "./SkeletonTitle";
+import SkeletonData from "./SkeletonData";
 
 const DetailPage = () => {
   const [detail, setDetail] = useState({});
-  const [loading, setLoading] = useState(true);
 
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setLoading(false);
-    getDetail(id)
-      .then((res) => setDetail(res))
-      .finally(() => setLoading(true));
+    // setLoading(false);
+    getDetail(id).then((res) => setDetail(res));
   }, [id]);
 
   return (
@@ -35,34 +35,54 @@ const DetailPage = () => {
           margin: "20px",
           position: "absolute",
         }}
-        onClick={() => navigate("/home")}
+        onClick={(ev) => {
+          ev.preventDefault();
+          document.startViewTransition(() => {
+            flushSync(() => {
+              navigate("/home");
+            });
+          });
+        }}
       >
         Back
       </button>
       <div className={styles.detail}>
-        {loading ? (
-          <>
+        <div style={{ width: "135px", height: "47px", textAlign: "center" }}>
+          {detail.name ? (
             <h4>
-              {detail.name &&
-                detail.name.slice(0, 1).toUpperCase() + detail.name.slice(1)}
+              {detail.name.slice(0, 1).toUpperCase() + detail.name.slice(1)}
             </h4>
-            <div className={styles.divimg2}>
-              <div>
-                <img loading="lazy" src={detail.image} alt={detail.name} />
-              </div>
-              <div>
-                <p>Hp: </p>
-                <p>Attack: </p>
-                <p>Defense: </p>
-                <p>Speed: </p>
-                <p>Height: </p>
-                <p>Weight: </p>
-                <p>Types: </p>
-              </div>
-              <div>
-                <div />
-              </div>
-              <div>
+          ) : (
+            <SkeletonTitle />
+          )}
+        </div>
+        <div className={styles.divimg2}>
+          <div>
+            <img
+              loading="lazy"
+              // src={detail.image}
+              src={`/gif/${id}.gif`}
+              alt={detail.name}
+              style={{ viewTransitionName: `pokemon-${id}` }}
+            />
+          </div>
+          <div>
+            <p>Id: </p>
+            <p>Hp: </p>
+            <p>Attack: </p>
+            <p>Defense: </p>
+            <p>Speed: </p>
+            <p>Height: </p>
+            <p>Weight: </p>
+            <p>Types: </p>
+          </div>
+          {/* <div>
+            <div />
+          </div> */}
+          <div style={{ width: "82px", height: "330px" }}>
+            {detail.id ? (
+              <>
+                <p style={{ overflow: "hidden" }}>{detail.id}</p>
                 <p>{detail.hp}</p>
                 <p>{detail.attack}</p>
                 <p>{detail.defense}</p>
@@ -72,23 +92,22 @@ const DetailPage = () => {
                 <div
                   style={{
                     display: "flex",
-                    textAlign: "center",
+                    flexDirection: "column",
+                    textAlign: "start",
                     gap: "10px",
                     margin: "10px 10px",
-                    justifyContent: "space-around",
-                    alignItems: "center",
                   }}
                 >
                   {detail.types?.map((t) => (
                     <p key={t.id}>{t.name}</p>
                   ))}
                 </div>
-              </div>
-            </div>
-          </>
-        ) : (
-          <h1>hola</h1>
-        )}
+              </>
+            ) : (
+              <SkeletonData />
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

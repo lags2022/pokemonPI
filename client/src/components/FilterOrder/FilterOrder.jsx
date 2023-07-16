@@ -37,7 +37,7 @@ const FilterOrder = () => {
 
   return (
     <div className={styles.filter}>
-      <label htmlFor="types" className="scale1">
+      <label htmlFor="types" className="fadein">
         <span>Filter by:</span>
         <div className={styles.select}>
           <select name="types" onChange={handleType}>
@@ -50,7 +50,7 @@ const FilterOrder = () => {
           </select>
         </div>
       </label>
-      <label htmlFor="apiordb" className="scale1">
+      <label htmlFor="apiordb" className="fadein">
         <span>Order by:</span>
         <div className={styles.select}>
           <select name="apiordb" onChange={handleApiDb}>
@@ -61,7 +61,7 @@ const FilterOrder = () => {
           </select>
         </div>
       </label>
-      <label htmlFor="order" className="scale1">
+      <label htmlFor="order" className="fadein">
         <span>or</span>
         <div className={styles.select}>
           <select name="order" onChange={handleOrder}>
@@ -74,7 +74,7 @@ const FilterOrder = () => {
           </select>
         </div>
       </label>
-      <button className="scale1" onClick={() => dispatch(getPokemons())}>
+      <button className="fadein" onClick={() => dispatch(getPokemons())}>
         All
       </button>
     </div>
