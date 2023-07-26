@@ -1,12 +1,10 @@
 const { Pokemon, Type } = require("../db");
 const { pokemonMod } = require("../helpers/pokemonMod");
 const { pokemonModDetail } = require("../helpers/pokemonModDetail");
-const pokemonModDetailTypeModel = require("../helpers/pokemonModDetailTypeModel");
-
 const axios = require("axios");
-const { Op, UUIDV4 } = require("sequelize");
+const { Op } = require("sequelize");
 
-url = "https://pokeapi.co/api/v2/pokemon";
+const url = "https://pokeapi.co/api/v2/pokemon";
 
 const getAllPokemons = async () => {
   try {
@@ -14,11 +12,6 @@ const getAllPokemons = async () => {
 
     const urlsMapAxios = data.results.map((p) => axios.get(p.url));
     const dataPokemons = await pokemonMod(urlsMapAxios);
-
-    for (const pokemon of dataPokemons) {
-      const newArray = await pokemonModDetailTypeModel(pokemon.types, Type);
-      pokemon.types = newArray;
-    }
 
     const AllPokemonsDb = await Pokemon.findAll({
       include: {
@@ -59,11 +52,6 @@ const getIdPokemon = async (id) => {
 
     const { data } = await axios.get(`${url}/${id}`);
     const detailPokemon = pokemonModDetail(data);
-    const detailPokemonMod = await pokemonModDetailTypeModel(
-      detailPokemon.types,
-      Type
-    );
-    detailPokemon.types = detailPokemonMod;
     return detailPokemon;
   } catch (error) {
     throw new Error(error.message);
@@ -91,15 +79,10 @@ const getNameQuery = async (query) => {
     } else {
       const { data } = await axios(`${url}/${query.toLowerCase()}`);
       const detailPokemon = pokemonModDetail(data);
-      const detailPokemonMod = await pokemonModDetailTypeModel(
-        detailPokemon.types,
-        Type
-      );
-      detailPokemon.types = detailPokemonMod;
       return [detailPokemon];
     }
   } catch (error) {
-    throw new Error("Pokemons not founds");
+    throw new Error("Pokemon not found");
   }
 };
 
@@ -126,19 +109,10 @@ const createPokemon = async ({
       weight,
       createDb: true,
     });
-    await newPokemon.addTypes(types);
-    const pokemonWithTypes = await Pokemon.findByPk(newPokemon.id, {
-      include: {
-        model: Type,
-        through: {
-          attributes: [],
-        },
-      },
-    });
-    return pokemonWithTypes;
+    await newPokemon.setTypes(types);
+    return;
   } catch (error) {
-    // throw new Error("Error created Pokemon");
-    throw new Error(error.message);
+    throw new Error("Pokemon not created");
   }
 };
 

@@ -1,22 +1,21 @@
+import axios from "axios";
+import styles from "./FormPage.module.css";
 import { useState, useEffect } from "react";
 import { validations } from "../../utils/validations";
 import ErrorForm from "../ErrorForm/ErrorForm";
-import { getFilter } from "../../actions/getFilter";
-import axios from "axios";
-import styles from "./FormPage.module.css";
-import { useNavigate } from "react-router-dom";
 import Notification from "../Notification/Notification";
-import { useDispatch } from "react-redux";
-import { getPokemons } from "../../redux/actions_creators";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getPokemons, getTypes } from "../../redux/actions_creators";
 
 const FormPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { types } = useSelector((state) => state);
   const [loading, setLoading] = useState(false);
-  const [showTypes, setShowTypes] = useState([]);
   const [showNotification, setShowNotification] = useState(false);
   const [messageError, setMessageError] = useState(null);
   const [showMessageStatus, setShowMessageStatus] = useState(false);
-  const dispatch = useDispatch();
 
   const INITIAL_FORM = {
     name: "",
@@ -44,8 +43,8 @@ const FormPage = () => {
   });
 
   useEffect(() => {
-    getFilter().then((types) => setShowTypes(types));
-  }, []);
+    !types.length && dispatch(getTypes());
+  }, [dispatch]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -260,7 +259,7 @@ const FormPage = () => {
           <div className={styles.typesform}>
             <p>Types:</p>
             <div>
-              {showTypes.map((t) => (
+              {types.map((t) => (
                 <label htmlFor={t.name} key={t.id}>
                   {t.name}
                   <input

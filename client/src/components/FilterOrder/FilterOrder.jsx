@@ -1,16 +1,16 @@
-import { getFilter } from "../../actions/getFilter";
-import { getPokemons } from "../../redux/actions_creators";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { getPokemons, getTypes } from "../../redux/actions_creators";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { FILTERTYPE, ORDER, APIORDB } from "../../redux/actions";
 import styles from "./FilterOrder.module.css";
 
 const FilterOrder = () => {
   const dispatch = useDispatch();
-  const [types, setTypes] = useState([]);
+  const { types } = useSelector((state) => state);
+
   useEffect(() => {
-    getFilter().then((res) => setTypes(res));
-  }, []);
+    !types.length && dispatch(getTypes());
+  }, [dispatch]);
 
   const handleType = (evt) => {
     dispatch({
@@ -62,7 +62,7 @@ const FilterOrder = () => {
         </div>
       </label>
       <label htmlFor="order" className="fadein">
-        <span>or</span>
+        <span style={{ marginRight: "10px" }}>or</span>
         <div className={styles.select}>
           <select name="order" onChange={handleOrder}>
             <option value="all"></option>
@@ -75,7 +75,7 @@ const FilterOrder = () => {
         </div>
       </label>
       <button className="fadein" onClick={() => dispatch(getPokemons())}>
-        All
+        Show
       </button>
     </div>
   );

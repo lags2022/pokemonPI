@@ -10,19 +10,17 @@ const HomePage = ({ leaveHomePage }) => {
       <header>
         <h1 className={styles.prueba}>Pokemon Api</h1>
         <div>
-          <button className="fadein">
-            <Link style={{ color: "white" }} to="/form">
-              Create
-            </Link>
-          </button>
+          <Link style={{ color: "white" }} to="/form">
+            <button className="fadein">Create Pokemon</button>
+          </Link>
           <SearchBar />
+          <FilterOrder />
           <button className="fadein" onClick={leaveHomePage}>
             Leave
           </button>
         </div>
       </header>
       <main>
-        <FilterOrder />
         <Pokemons />
       </main>
     </>

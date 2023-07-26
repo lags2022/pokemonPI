@@ -48,3 +48,9 @@ main {
   justify-content: center;
   flex-direction: column;
 }
+
+@media screen and (min-width: 764px) {
+  .prueba {
+    font-size: 62px;
+  }
+}

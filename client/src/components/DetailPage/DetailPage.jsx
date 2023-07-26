@@ -1,22 +1,24 @@
 import { useParams } from "react-router-dom";
-import { getDetail } from "../../actions/getDetail";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styles from "./DetailPage.module.css";
 import { useNavigate } from "react-router-dom";
 import { flushSync } from "react-dom";
 import SkeletonTitle from "./SkeletonTitle";
 import SkeletonData from "./SkeletonData";
+import { useSelector, useDispatch } from "react-redux";
+import { getPokemonDetail } from "../../redux/actions_creators";
 
 const DetailPage = () => {
-  const [detail, setDetail] = useState({});
+  const dispatch = useDispatch();
+  const { pokemonDetail } = useSelector((state) => state);
 
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // setLoading(false);
-    getDetail(id).then((res) => setDetail(res));
-  }, [id]);
+    dispatch(getPokemonDetail(id));
+    return () => dispatch(getPokemonDetail());
+  }, [id, dispatch]);
 
   return (
     <div
@@ -48,9 +50,10 @@ const DetailPage = () => {
       </button>
       <div className={styles.detail}>
         <div style={{ width: "135px", height: "47px", textAlign: "center" }}>
-          {detail.name ? (
+          {pokemonDetail.name ? (
             <h4>
-              {detail.name.slice(0, 1).toUpperCase() + detail.name.slice(1)}
+              {pokemonDetail.name.slice(0, 1).toUpperCase() +
+                pokemonDetail.name.slice(1)}
             </h4>
           ) : (
             <SkeletonTitle />
@@ -60,9 +63,9 @@ const DetailPage = () => {
           <div>
             <img
               loading="lazy"
-              // src={detail.image}
+              // src={pokemonDetail.image}
               src={`/gif/${id}.gif`}
-              alt={detail.name}
+              alt={pokemonDetail.name}
               style={{ viewTransitionName: `pokemon-${id}` }}
             />
           </div>
@@ -80,15 +83,24 @@ const DetailPage = () => {
             <div />
           </div> */}
           <div style={{ width: "82px", height: "330px" }}>
-            {detail.id ? (
+            {pokemonDetail.id ? (
               <>
-                <p style={{ overflow: "hidden" }}>{detail.id}</p>
-                <p>{detail.hp}</p>
-                <p>{detail.attack}</p>
-                <p>{detail.defense}</p>
-                {detail.speed && <p>{detail.speed}</p>}
-                {detail.height && <p>{detail.height}</p>}
-                {detail.weight && <p>{detail.weight}</p>}
+                <p
+                  style={{
+                    overflow: "hidden",
+                    width: "60px",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {pokemonDetail.id}
+                </p>
+                <p>{pokemonDetail.hp}</p>
+                <p>{pokemonDetail.attack}</p>
+                <p>{pokemonDetail.defense}</p>
+                {pokemonDetail.speed && <p>{pokemonDetail.speed}</p>}
+                {pokemonDetail.height && <p>{pokemonDetail.height}</p>}
+                {pokemonDetail.weight && <p>{pokemonDetail.weight}</p>}
                 <div
                   style={{
                     display: "flex",
@@ -98,8 +110,8 @@ const DetailPage = () => {
                     margin: "10px 10px",
                   }}
                 >
-                  {detail.types?.map((t) => (
-                    <p key={t.id}>{t.name}</p>
+                  {pokemonDetail.types?.map((t, i) => (
+                    <p key={i}>{t.name}</p>
                   ))}
                 </div>
               </>

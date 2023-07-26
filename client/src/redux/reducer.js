@@ -4,11 +4,14 @@ const INITIAL_VALUES = {
   pokemonsAll: [],
   pokemonsFilter: [],
   pagination: 1,
+  pokemonDetail: {},
+  types: [],
 };
 
 export const reducer = (state = INITIAL_VALUES, actions) => {
   const ACTIONS = {
     GETPOKEMONS: {
+      ...state,
       pokemonsAll: actions.payload,
       pokemonsFilter: actions.payload,
     },
@@ -16,6 +19,16 @@ export const reducer = (state = INITIAL_VALUES, actions) => {
     GETPOKEMONQUERY: {
       ...state,
       pokemonsFilter: actions.payload,
+    },
+
+    GETPOKEMONDETAIL: {
+      ...state,
+      pokemonDetail: actions.payload,
+    },
+
+    GETTYPES: {
+      ...state,
+      types: actions.payload,
     },
 
     FILTERTYPE: {

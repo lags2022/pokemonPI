@@ -48,6 +48,11 @@ const Pokemons = () => {
 
   return (
     <div className={styles.pokemons}>
+      <Pagination
+        postsPerPage={postsPerPage}
+        totalPosts={pokemonsFilter.length}
+        paginate={paginate}
+      />
       {loading ? (
         <>
           <h6 className={styles.searchh6}>Searching pokemons...</h6>
@@ -81,11 +86,6 @@ const Pokemons = () => {
           </>
         )
       )}
-      <Pagination
-        postsPerPage={postsPerPage}
-        totalPosts={pokemonsFilter.length}
-        paginate={paginate}
-      />
     </div>
   );
 };
