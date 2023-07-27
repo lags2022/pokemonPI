@@ -42,7 +42,7 @@ const Pokemon = ({ id, name, image, types }) => {
         }}
       >
         {types.map((t, i) => (
-          <p style={{ left: 0, padding: "10px", margin: 0 }} key={t.i}>
+          <p style={{ left: 0, padding: "10px", margin: 0 }} key={i}>
             {t.name}
           </p>
         ))}

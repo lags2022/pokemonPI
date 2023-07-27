@@ -5,3 +5,5 @@ export const ORDER = "ORDER";
 export const APIORDB = "APIORDB";
 export const GETPOKEMONDETAIL = "GETPOKEMONDETAIL";
 export const GETTYPES = "GETTYPES";
+export const GETPAGINATION = "GETPAGINATION";
+export const START = "START";

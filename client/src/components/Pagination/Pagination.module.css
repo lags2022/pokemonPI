@@ -1,8 +1,43 @@
+.pagina {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
 .pagina > ul {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   align-items: center;
   justify-content: center;
-  list-style: none;
 }
+
+.pagebutton {
+  background-color: white;
+  color: #0078e7;
+}
+
+.pagebutton:hover {
+  filter: none;
+  background-image: none;
+  scale: none;
+  font-weight: 600;
+}
+
+.currentpagebutton {
+  background-color: #0078e7;
+  color: #fff;
+}
+
+.pagehidden {
+  display: none;
+}
+
+/* .showpointsnone {
+  display: none;
+}
+
+.showpoints {
+  display: inline-block;
+} */

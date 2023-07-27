@@ -6,6 +6,7 @@ const INITIAL_VALUES = {
   pagination: 1,
   pokemonDetail: {},
   types: [],
+  start: 1,
 };
 
 export const reducer = (state = INITIAL_VALUES, actions) => {
@@ -57,6 +58,16 @@ export const reducer = (state = INITIAL_VALUES, actions) => {
         actions.payload !== "all"
           ? [...state.pokemonsAll].sort((a, b) => order(a, b, actions.payload))
           : state.pokemonsAll,
+    },
+
+    GETPAGINATION: {
+      ...state,
+      pagination: actions.payload,
+    },
+
+    START: {
+      ...state,
+      start: actions.payload,
     },
   };
 

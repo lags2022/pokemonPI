@@ -4,16 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPokemons } from "../../redux/actions_creators";
 import Pagination from "../Pagination/Pagination";
 import Pokemon from "../Pokemon/Pokemon";
+import { GETPAGINATION } from "../../redux/actions";
 
 const Pokemons = () => {
   const dispatch = useDispatch();
-  const { pokemonsFilter } = useSelector((state) => state);
+  const { pokemonsFilter, pagination } = useSelector((state) => state);
   const [loading, setLoading] = useState(false);
   const [notfound, setNotfound] = useState(false);
 
-  const [currentPage, setCurrentPage] = useState(1);
+  // const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 12;
-  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfLastPost = pagination * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const pokemonsPagination = pokemonsFilter.slice(
     indexOfFirstPost,
@@ -21,13 +22,20 @@ const Pokemons = () => {
   );
 
   const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    dispatch({
+      type: GETPAGINATION,
+      payload: pageNumber,
+    });
+    // setCurrentPage(pageNumber);
   };
 
   //para reiniciar la paginacion en 1
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [pokemonsFilter.length]);
+  // useEffect(() => {
+  //   dispatch({
+  //     type: GETPAGINATION,
+  //     payload: 1,
+  //   });
+  // }, [pokemonsFilter.length]);
 
   //para hacer el loading con gif pokemon corriendo
   useEffect(() => {
