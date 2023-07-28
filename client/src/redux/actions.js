@@ -1,9 +1,8 @@
-export const GETPOKEMONS = "GETPOKEMONS";
-export const GETPOKEMONQUERY = "GETPOKEMONQUERY";
-export const FILTERTYPE = "FILTERTYPE";
-export const ORDER = "ORDER";
-export const APIORDB = "APIORDB";
 export const GETPOKEMONDETAIL = "GETPOKEMONDETAIL";
-export const GETTYPES = "GETTYPES";
+export const GETPOKEMONQUERY = "GETPOKEMONQUERY";
+export const FILTERPOKEMONS = "FILTERPOKEMONS";
 export const GETPAGINATION = "GETPAGINATION";
+export const GETPOKEMONS = "GETPOKEMONS";
+export const GETTYPES = "GETTYPES";
 export const START = "START";
+export const ALL = "ALL";

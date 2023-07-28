@@ -56,32 +56,34 @@ const Pokemons = () => {
 
   return (
     <div className={styles.pokemons}>
-      <Pagination
-        postsPerPage={postsPerPage}
-        totalPosts={pokemonsFilter.length}
-        paginate={paginate}
-      />
       {loading ? (
         <>
-          <h6 className={styles.searchh6}>Searching pokemons...</h6>
           <img
             src="/pikachu_squeleton.gif"
             alt="pikachu_squeleton"
             style={{ width: "300px" }}
           />
+          <h6 className={styles.searchh6}>Searching pokemons...</h6>
         </>
       ) : pokemonsPagination.length ? (
-        <ul>
-          {pokemonsPagination.map((p) => (
-            <Pokemon
-              key={p.id}
-              id={p.id}
-              name={p.name}
-              image={p.image}
-              types={p.types}
-            />
-          ))}
-        </ul>
+        <>
+          <Pagination
+            postsPerPage={postsPerPage}
+            totalPosts={pokemonsFilter.length}
+            paginate={paginate}
+          />
+          <ul>
+            {pokemonsPagination.map((p) => (
+              <Pokemon
+                key={p.id}
+                id={p.id}
+                name={p.name}
+                image={p.image}
+                types={p.types}
+              />
+            ))}
+          </ul>
+        </>
       ) : (
         notfound && (
           <>

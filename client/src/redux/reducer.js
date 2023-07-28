@@ -1,4 +1,4 @@
-import { order } from "../utils/order";
+import { filterPokemons } from "../utils/otherFuncReducer";
 
 const INITIAL_VALUES = {
   pokemonsAll: [],
@@ -11,6 +11,11 @@ const INITIAL_VALUES = {
 
 export const reducer = (state = INITIAL_VALUES, actions) => {
   const ACTIONS = {
+    ALL: {
+      ...state,
+      pokemonsFilter: state.pokemonsAll,
+    },
+
     GETPOKEMONS: {
       ...state,
       pokemonsAll: actions.payload,
@@ -32,32 +37,9 @@ export const reducer = (state = INITIAL_VALUES, actions) => {
       types: actions.payload,
     },
 
-    FILTERTYPE: {
+    FILTERPOKEMONS: {
       ...state,
-      pokemonsFilter:
-        actions.payload !== "all"
-          ? state.pokemonsAll.filter((p) =>
-              p.types.some((t) => t.name === actions.payload)
-            )
-          : state.pokemonsAll,
-    },
-
-    APIORDB: {
-      ...state,
-      pokemonsFilter:
-        actions.payload !== "all"
-          ? state.pokemonsAll.filter((p) =>
-              actions.payload === "database" ? p.createDb : !p.createDb
-            )
-          : state.pokemonsAll,
-    },
-
-    ORDER: {
-      ...state,
-      pokemonsFilter:
-        actions.payload !== "all"
-          ? [...state.pokemonsAll].sort((a, b) => order(a, b, actions.payload))
-          : state.pokemonsAll,
+      pokemonsFilter: filterPokemons(state.pokemonsAll, actions.payload),
     },
 
     GETPAGINATION: {

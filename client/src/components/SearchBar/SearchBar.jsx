@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getPokemonQuery } from "../../redux/actions_creators";
 import styles from "./SearchBar.module.css";
+import { GETPAGINATION } from "../../redux/actions";
 
 const SearchBar = () => {
   const [search, setSearch] = useState("");
@@ -24,7 +25,14 @@ const SearchBar = () => {
       </label>
       <button
         className="fadein"
-        onClick={() => dispatch(getPokemonQuery(search))}
+        onClick={() => {
+          dispatch(getPokemonQuery(search)).finally(() => {
+            dispatch({
+              type: GETPAGINATION,
+              payload: 1,
+            });
+          });
+        }}
       >
         Search
       </button>

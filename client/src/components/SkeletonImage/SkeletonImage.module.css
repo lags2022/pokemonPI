@@ -1,0 +1,18 @@
+.skimage {
+  position: absolute;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  animation: skimage-loading 1s linear infinite alternate;
+  margin: 0 !important;
+}
+
+@keyframes skimage-loading {
+  0% {
+    background-color: #f5f5f5;
+  }
+
+  100% {
+    background-color: #e0e0e0;
+  }
+}

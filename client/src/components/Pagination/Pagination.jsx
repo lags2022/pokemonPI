@@ -6,7 +6,6 @@ import { START } from "../../redux/actions";
 const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
   const { pagination, start } = useSelector((state) => state);
   const dispatch = useDispatch();
-  // const [start, setStart] = useState(1);
 
   const pageNumbers = [];
 
@@ -28,8 +27,6 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
         });
     }
   }, [pagination]);
-
-  console.log(start, start + 2);
 
   return (
     <nav className={styles.pagina}>

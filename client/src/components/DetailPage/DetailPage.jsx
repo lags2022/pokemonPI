@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "./DetailPage.module.css";
 import { useNavigate } from "react-router-dom";
 import { flushSync } from "react-dom";
@@ -7,13 +7,14 @@ import SkeletonTitle from "./SkeletonTitle";
 import SkeletonData from "./SkeletonData";
 import { useSelector, useDispatch } from "react-redux";
 import { getPokemonDetail } from "../../redux/actions_creators";
+import SkeletonImage from "../SkeletonImage/SkeletonImage";
 
 const DetailPage = () => {
   const dispatch = useDispatch();
-  const { pokemonDetail } = useSelector((state) => state);
-
-  const { id } = useParams();
   const navigate = useNavigate();
+  const { id } = useParams();
+  const { pokemonDetail } = useSelector((state) => state);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     dispatch(getPokemonDetail(id));
@@ -61,12 +62,16 @@ const DetailPage = () => {
         </div>
         <div className={styles.divimg2}>
           <div>
+            {!imageLoaded && <SkeletonImage />}
             <img
               loading="lazy"
-              // src={pokemonDetail.image}
-              src={`/gif/${id}.gif`}
+              src={pokemonDetail.image ? pokemonDetail.image : ""}
+              // src={`/gif/${id}.gif`}
               alt={pokemonDetail.name}
-              style={{ viewTransitionName: `pokemon-${id}` }}
+              onLoad={() => setImageLoaded(true)}
+              style={{
+                viewTransitionName: `pokemon-${id}`,
+              }}
             />
           </div>
           <div>
