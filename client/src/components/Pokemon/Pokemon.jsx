@@ -1,12 +1,12 @@
-import { useNavigate } from "react-router-dom";
-import styles from "./Pokemon.module.css";
-import { flushSync } from "react-dom";
-import { useState } from "react";
+import { navigationApiTransition } from "../../utils/navigationApiTransition";
 import SkeletonImage from "../SkeletonImage/SkeletonImage";
+import styles from "./Pokemon.module.css";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Pokemon = ({ id, name, image, types }) => {
-  const navigate = useNavigate();
   const [imageLoaded, setImageLoaded] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <li className={`${styles.pokemon} fadein`}>
@@ -25,11 +25,7 @@ const Pokemon = ({ id, name, image, types }) => {
           onLoad={() => setImageLoaded(true)}
           onClick={(ev) => {
             ev.preventDefault();
-            document.startViewTransition(() => {
-              flushSync(() => {
-                navigate(`/detail/${id}`);
-              });
-            });
+            navigationApiTransition(navigate, `/detail/${id}`);
           }}
         />
       </div>

@@ -84,3 +84,16 @@ ul {
     opacity: 1;
   }
 }
+
+.imgtitle {
+  animation: title-poke 0.75s ease-in-out infinite alternate;
+}
+
+@keyframes title-poke {
+  0% {
+    scale: 0.95;
+  }
+  100% {
+    scale: 1.05;
+  }
+}

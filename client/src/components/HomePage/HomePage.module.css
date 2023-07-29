@@ -5,6 +5,11 @@ header {
   justify-content: center;
   padding-bottom: 20px;
   background-color: rgb(143, 182, 255);
+
+  & img {
+    width: 300px;
+    margin: 10px auto;
+  }
 }
 
 h1 {

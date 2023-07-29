@@ -6,6 +6,14 @@ const FirstPage = ({ showHomePage }) => {
       <div>
         <video autoPlay muted loop src="/fpage.webm"></video>
         <div className={styles.bfpage}>
+          <img
+            className="imgtitle"
+            src="/titulo_pokemon.webp"
+            alt="titulo_pokemon"
+            style={{
+              viewTransitionName: "titlepok",
+            }}
+          />
           <button onClick={showHomePage}>Go to Pokemon Api</button>
         </div>
       </div>

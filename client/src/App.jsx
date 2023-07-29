@@ -5,16 +5,17 @@ import HomePage from "./components/HomePage/HomePage";
 import DetailPage from "./components/DetailPage/DetailPage";
 import FormPage from "./components/FormPage/FormPage";
 import { useNavigate } from "react-router-dom";
+import { navigationApiTransition } from "./utils/navigationApiTransition";
 
 function App() {
   const navigate = useNavigate();
 
   const showHomePage = () => {
-    navigate("/home");
+    navigationApiTransition(navigate, "/home");
   };
 
   const leaveHomePage = () => {
-    navigate("/");
+    navigationApiTransition(navigate, "/");
   };
 
   return (

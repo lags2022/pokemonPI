@@ -2,12 +2,12 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styles from "./DetailPage.module.css";
 import { useNavigate } from "react-router-dom";
-import { flushSync } from "react-dom";
 import SkeletonTitle from "./SkeletonTitle";
 import SkeletonData from "./SkeletonData";
 import { useSelector, useDispatch } from "react-redux";
 import { getPokemonDetail } from "../../redux/actions_creators";
 import SkeletonImage from "../SkeletonImage/SkeletonImage";
+import { navigationApiTransition } from "../../utils/navigationApiTransition";
 
 const DetailPage = () => {
   const dispatch = useDispatch();
@@ -40,11 +40,7 @@ const DetailPage = () => {
         }}
         onClick={(ev) => {
           ev.preventDefault();
-          document.startViewTransition(() => {
-            flushSync(() => {
-              navigate("/home");
-            });
-          });
+          navigationApiTransition(navigate, "/home");
         }}
       >
         Back

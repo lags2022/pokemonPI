@@ -7,6 +7,7 @@ import Notification from "../Notification/Notification";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPokemons, getTypes } from "../../redux/actions_creators";
+import { navigationApiTransition } from "../../utils/navigationApiTransition";
 
 const FormPage = () => {
   const navigate = useNavigate();
@@ -57,6 +58,10 @@ const FormPage = () => {
       form.types.length
     ) {
       setLoading(true);
+
+      if (!form.image.startsWith("https://"))
+        form.image = "http://localhost:3001/images/whithout_image.webp";
+
       axios
         .post("http://localhost:3001/pokemons", form)
         .catch((error) => setMessageError(error.message))
@@ -133,7 +138,11 @@ const FormPage = () => {
         />
       )}
       <h1 style={{ margin: "10px auto" }}>Create Pokemon</h1>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit}
+        style={{ viewTransitionName: "form-pok" }}
+      >
         <div
           style={{
             display: "flex",
@@ -292,7 +301,7 @@ const FormPage = () => {
             type="button"
             disabled={loading}
             className={loading ? styles.blocked : ""}
-            onClick={() => navigate("/home")}
+            onClick={() => navigationApiTransition(navigate, "/home")}
           >
             Back
           </button>

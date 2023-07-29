@@ -25,6 +25,7 @@ server.use((req, res, next) => {
   next();
 });
 server.use(cors());
+server.use("/images", express.static(__dirname + "/public"));
 
 server.use("/", routes);
 
