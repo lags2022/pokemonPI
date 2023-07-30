@@ -1,11 +1,19 @@
 .skdata {
-  margin-bottom: 20px;
-  width: 80px;
-  height: 18px;
-  background-color: red;
-  margin: 15px 0px;
-  animation: skdata-loading 1s linear infinite alternate;
-  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 16px;
+  padding-top: 10px;
+}
+
+.skdata {
+  & div {
+    width: 80px;
+    height: 18px;
+    animation: skdata-loading 1s linear infinite alternate;
+    border-radius: 3px;
+  }
 }
 
 @keyframes skdata-loading {
@@ -15,5 +23,19 @@
 
   100% {
     background-color: #e0e0e0;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .skdata {
+    padding-top: 12px;
+    gap: 16px;
+  }
+
+  .skdata {
+    & div {
+      width: 70px;
+      height: 15px;
+    }
   }
 }

@@ -25,18 +25,17 @@ const DetailPage = () => {
     <div
       style={{
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
         alignContent: "center",
         width: "100%",
-        height: "100vh",
-        position: "relative",
       }}
     >
       <button
         style={{
+          margin: "20px auto",
+          width: "fit-content",
           height: "fit-content",
-          margin: "20px",
-          position: "absolute",
         }}
         onClick={(ev) => {
           ev.preventDefault();

@@ -49,3 +49,47 @@ select {
   pointer-events: none;
   color: white;
 }
+
+.filter > label:nth-child(3) > span {
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .filter {
+    gap: 10px;
+
+    font-size: 12px;
+
+    & button {
+      font-size: 12px;
+    }
+
+    & select {
+      font-size: 12px;
+    }
+
+    & option {
+      font-size: 12px;
+    }
+  }
+
+  .select {
+    width: 100px;
+  }
+
+  .filter > label:nth-child(3) > span {
+    margin-right: 0px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .filter {
+    display: grid;
+    /* width: 100%; */
+    grid-template-columns: repeat(2, 1fr);
+
+    & button {
+      width: fit-content;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 .sktitle {
+  margin: auto;
   margin-top: 18px;
   width: 135px;
   height: 20px;
@@ -13,5 +14,12 @@
 
   100% {
     background-color: #e0e0e0;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .sktitle {
+    width: 100px;
+    height: 15px;
   }
 }

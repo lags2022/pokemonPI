@@ -11,6 +11,13 @@
   padding: 20px;
   font-size: medium;
   font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.form > div:first-child {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
 }
 
 .inputform {
@@ -33,6 +40,7 @@
   align-items: center;
   justify-content: flex-start;
   gap: 10px;
+  position: relative;
 
   & input {
     padding: auto;
@@ -45,14 +53,13 @@
   padding: 0;
 }
 
-.typesform > div {
+.typesform > div:nth-child(2) {
   display: grid;
   grid-template: repeat(10, auto) / repeat(2, auto);
   column-gap: 30px;
   row-gap: 10px;
   align-items: center;
   justify-content: center;
-  position: relative;
 }
 
 .typesform > div > label {
@@ -88,4 +95,61 @@
   width: 14em;
   top: 75%;
   right: 0;
+}
+
+.inputimage:focus {
+  outline: none;
+  border: none;
+}
+
+.errorinputtypes {
+  position: absolute;
+  bottom: 80px;
+}
+
+@media screen and (max-width: 768px) {
+  .form {
+    & label {
+      font-size: 15px;
+    }
+
+    & input {
+      font-size: 13px;
+      padding: 5px 10px;
+    }
+
+    & p {
+      font-size: 15px;
+    }
+  }
+
+  .errorinputtypes {
+    bottom: 0px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .form {
+    & label {
+      font-size: 12px;
+    }
+
+    & input {
+      font-size: 10px;
+    }
+
+    & p {
+      font-size: 13px;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .form > div:first-child {
+    flex-direction: column;
+  }
+
+  .errorinputtypes {
+    bottom: -20px;
+  }
 }

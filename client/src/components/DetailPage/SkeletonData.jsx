@@ -1,9 +1,15 @@
 import styles from "./SkeletonData.module.css";
 
 const SkeletonData = () => {
-  return Array(9)
-    .fill()
-    .map((_, i) => <div key={i} className={styles.skdata} />);
+  return (
+    <div className={styles.skdata}>
+      {Array(9)
+        .fill()
+        .map((_, i) => (
+          <div key={i} />
+        ))}
+    </div>
+  );
 };
 
 export default SkeletonData;

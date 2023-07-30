@@ -55,7 +55,7 @@ const FilterOrder = () => {
         </div>
       </label>
       <label htmlFor="order" className="fadein">
-        <span style={{ marginRight: "10px" }}>or</span>
+        <span>or</span>
         <div className={styles.select}>
           <select name="order" onChange={handleFilter}>
             <option value=""></option>
@@ -67,38 +67,47 @@ const FilterOrder = () => {
           </select>
         </div>
       </label>
-      <button
-        className="fadein"
-        onClick={() => {
-          const { type, apiordb, order } = filter;
-          if ([type, apiordb, order].some(Boolean)) {
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "15px",
+        }}
+      >
+        <button
+          className="fadein"
+          onClick={() => {
+            const { type, apiordb, order } = filter;
+            if ([type, apiordb, order].some(Boolean)) {
+              dispatch({
+                type: GETPAGINATION,
+                payload: 1,
+              });
+              dispatch({
+                type: FILTERPOKEMONS,
+                payload: filter,
+              });
+            }
+          }}
+        >
+          Show
+        </button>
+        <button
+          className="fadein"
+          onClick={() => {
             dispatch({
               type: GETPAGINATION,
               payload: 1,
             });
             dispatch({
-              type: FILTERPOKEMONS,
-              payload: filter,
+              type: ALL,
             });
-          }
-        }}
-      >
-        Show
-      </button>
-      <button
-        className="fadein"
-        onClick={() => {
-          dispatch({
-            type: GETPAGINATION,
-            payload: 1,
-          });
-          dispatch({
-            type: ALL,
-          });
-        }}
-      >
-        All
-      </button>
+          }}
+        >
+          All
+        </button>
+      </div>
     </div>
   );
 };

@@ -3,6 +3,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  & img {
+    width: 300px;
+    margin: 0;
+  }
 }
 
 .pokemons > ul {
@@ -69,5 +74,35 @@
   45% {
     transform: scale(1);
     animation-timing-function: ease-out;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .pokemons > ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .pokemons > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .pokemons {
+    font-size: 12px;
+
+    & img {
+      width: 200px;
+    }
+
+    & h6 {
+      font-size: 12px;
+    }
+  }
+
+  .pokemons > ul {
+    grid-template-columns: repeat(1, 1fr);
   }
 }

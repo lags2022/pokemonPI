@@ -120,6 +120,12 @@ const FormPage = () => {
     );
   };
 
+  console.log(form.image);
+
+  const handleChangeImage = (evt) => {
+    console.log(evt.target.files[0]);
+  };
+
   return (
     <div
       style={{
@@ -127,7 +133,6 @@ const FormPage = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignContent: "center",
-        gap: "10px",
         position: "relative",
       }}
     >
@@ -137,20 +142,22 @@ const FormPage = () => {
           showMessageStatus={showMessageStatus}
         />
       )}
+      <button
+        style={{ width: "fit-content", margin: "auto", marginTop: "15px" }}
+        type="button"
+        disabled={loading}
+        className={loading ? styles.blocked : ""}
+        onClick={() => navigationApiTransition(navigate, "/home")}
+      >
+        Back
+      </button>
       <h1 style={{ margin: "10px auto" }}>Create Pokemon</h1>
       <form
         className={styles.form}
         onSubmit={handleSubmit}
         style={{ viewTransitionName: "form-pok" }}
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignContent: "center",
-            gap: "30px",
-          }}
-        >
+        <div>
           <div className={styles.inputform}>
             <label htmlFor="name">
               <span>Name:</span>
@@ -165,7 +172,7 @@ const FormPage = () => {
                 {errors.name && <ErrorForm formError={errors.name} />}
               </div>
             </label>
-
+            {/* 
             <label htmlFor="image">
               <span>Image:</span>
               <input
@@ -173,6 +180,21 @@ const FormPage = () => {
                 name="image"
                 value={form.image}
                 onChange={handleChange}
+                disabled={loading}
+              />
+              <div className={styles.notivalerror}>
+                {errors.image && <ErrorForm formError={errors.image} />}
+              </div>
+            </label> */}
+
+            <label htmlFor="image">
+              <span>Image:</span>
+              <input
+                className={styles.inputimage}
+                type="file"
+                name="image"
+                value={form.image}
+                onChange={handleChangeImage}
                 disabled={loading}
               />
               <div className={styles.notivalerror}>
@@ -285,7 +307,7 @@ const FormPage = () => {
                 </label>
               ))}
             </div>
-            <div style={{ position: "absolute", bottom: "60px" }}>
+            <div className={styles.errorinputtypes}>
               {errors.types && <ErrorForm formError={errors.types} />}
             </div>
           </div>
@@ -297,14 +319,6 @@ const FormPage = () => {
             justifyContent: "space-around",
           }}
         >
-          <button
-            type="button"
-            disabled={loading}
-            className={loading ? styles.blocked : ""}
-            onClick={() => navigationApiTransition(navigate, "/home")}
-          >
-            Back
-          </button>
           <button
             type="submit"
             disabled={loading}

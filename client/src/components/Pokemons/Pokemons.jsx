@@ -61,7 +61,6 @@ const Pokemons = () => {
           <img
             src="/pikachu_squeleton.gif"
             alt="pikachu_squeleton"
-            style={{ width: "300px" }}
           />
           <h6 className={styles.searchh6}>Searching pokemons...</h6>
         </>
@@ -88,7 +87,6 @@ const Pokemons = () => {
         notfound && (
           <>
             <img
-              style={{ width: "300px", margin: "0" }}
               src="/pokemon_notfound.gif"
               alt="pokemon_notfound"
             />

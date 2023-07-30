@@ -17,32 +17,41 @@ const HomePage = ({ leaveHomePage }) => {
   return (
     <>
       <header>
-        <img
-          className="imgtitle"
-          src="/titulo_pokemon.webp"
-          alt="titulo_pokemon"
-          style={{
-            viewTransitionName: "titlepok",
-          }}
-        />
-        <small style={{ fontSize: "10px" }}>{isViewTransition}</small>
-        {/* <h1 className={styles.prueba}>Pokemon Api</h1> */}
         <div>
-          {/* <Link style={{ color: "white" }} to="/form"> */}
-          <button
-            className="fadein"
-            onClick={() => navigationApiTransition(navigate, "/form")}
-            style={{ viewTransitionName: "form-pok" }}
-          >
-            Create Pokemon
-          </button>
-          {/* </Link> */}
           <SearchBar />
-          <FilterOrder />
-          <button className="fadein" onClick={leaveHomePage}>
-            Leave
-          </button>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img
+              className="imgtitle"
+              src="/titulo_pokemon.webp"
+              alt="titulo_pokemon"
+              style={{
+                viewTransitionName: "titlepok",
+              }}
+            />
+            <small style={{ fontSize: "10px" }}>{isViewTransition}</small>
+            {/* <h1 className={styles.prueba}>Pokemon Api</h1> */}
+          </div>
+          <div>
+            <button
+              className="fadein"
+              onClick={() => navigationApiTransition(navigate, "/form")}
+              style={{ viewTransitionName: "form-pok" }}
+            >
+              Create Pokemon
+            </button>
+            <button className="fadein" onClick={leaveHomePage}>
+              Leave
+            </button>
+          </div>
         </div>
+        <FilterOrder />
       </header>
       <main>
         <Pokemons />
