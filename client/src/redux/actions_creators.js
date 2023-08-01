@@ -6,7 +6,8 @@ import {
   GETTYPES,
 } from "./actions";
 
-const url = "http://localhost:3001/pokemons";
+// const url = "http://localhost:3001/pokemons";
+const url = "https://pokemonback-u63g.onrender.com/pokemons";
 
 export const getPokemons = () => {
   return async function (dispatch) {
@@ -62,7 +63,11 @@ export const getPokemonDetail = (id) => {
 export const getTypes = () => {
   return async function (dispatch) {
     try {
-      const { data } = await axios.get("http://localhost:3001/types");
+      // const { data } = await axios.get("http://localhost:3001/types");
+      const { data } = await axios.get(
+        "https://pokemonback-u63g.onrender.com/types"
+      );
+
       return dispatch({
         type: GETTYPES,
         payload: data,
