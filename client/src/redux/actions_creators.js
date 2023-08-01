@@ -7,7 +7,7 @@ import {
 } from "./actions";
 
 // const url = "http://localhost:3001/pokemons";
-const url = "https://pokemonback-u63g.onrender.com/pokemons";
+const url = "https://pokemonback.fly.dev/pokemons";
 
 export const getPokemons = () => {
   return async function (dispatch) {
@@ -65,7 +65,7 @@ export const getTypes = () => {
     try {
       // const { data } = await axios.get("http://localhost:3001/types");
       const { data } = await axios.get(
-        "https://pokemonback-u63g.onrender.com/types"
+        "https://pokemonback.fly.dev/types"
       );
 
       return dispatch({
