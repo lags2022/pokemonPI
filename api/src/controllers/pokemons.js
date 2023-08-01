@@ -8,7 +8,7 @@ const url = "https://pokeapi.co/api/v2/pokemon";
 
 const getAllPokemons = async () => {
   try {
-    const { data } = await axios.get(`${url}?limit=151`);
+    const { data } = await axios.get(`${url}?limit=60`);
 
     const urlsMapAxios = data.results.map((p) => axios.get(p.url));
     const dataPokemons = await pokemonMod(urlsMapAxios);

@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import styles from "./CloudinaryButton.module.css";
 
-const CloudinaryButton = ({ handleImageUrlCloudinary, loading }) => {
+const CloudinaryButton = ({ handleImageUrlCloudinary, loading, imageprev }) => {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
   const [preview, setPreview] = useState(null);
@@ -45,10 +45,10 @@ const CloudinaryButton = ({ handleImageUrlCloudinary, loading }) => {
       >
         Upload
       </button>
-      {preview && (
+      {imageprev && (
         <img
           style={{ width: "50px", height: "50px" }}
-          src={preview}
+          src={imageprev}
           alt="image_upload"
         />
       )}

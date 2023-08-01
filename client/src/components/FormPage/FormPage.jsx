@@ -304,6 +304,7 @@ const FormPage = () => {
           </div>
           <div>
             <CloudinaryButton
+              imageprev={form.image}
               loading={loading}
               handleImageUrlCloudinary={handleImageUrlCloudinary}
             />
