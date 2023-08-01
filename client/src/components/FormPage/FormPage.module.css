@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   margin: auto;
-  gap: 30px;
+  gap: 20px;
   padding: 20px;
   font-size: medium;
   font-weight: 600;
@@ -104,7 +104,15 @@
 
 .errorinputtypes {
   position: absolute;
-  bottom: 80px;
+  bottom: 10px;
+}
+
+.imagecloud {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
 }
 
 @media screen and (max-width: 768px) {
@@ -124,7 +132,11 @@
   }
 
   .errorinputtypes {
-    bottom: 0px;
+    bottom: -20px;
+  }
+
+  .spanimage {
+    font-size: 15px;
   }
 }
 
@@ -141,6 +153,10 @@
     & p {
       font-size: 13px;
     }
+  }
+
+  .spanimage {
+    font-size: 12px;
   }
 }
 

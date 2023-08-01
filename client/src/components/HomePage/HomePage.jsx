@@ -36,7 +36,6 @@ const HomePage = ({ leaveHomePage }) => {
               }}
             />
             <small style={{ fontSize: "10px" }}>{isViewTransition}</small>
-            {/* <h1 className={styles.prueba}>Pokemon Api</h1> */}
           </div>
           <div>
             <button

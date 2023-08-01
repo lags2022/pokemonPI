@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPokemons, getTypes } from "../../redux/actions_creators";
 import { navigationApiTransition } from "../../utils/navigationApiTransition";
+import CloudinaryButton from "../CloudinaryButton/CloudinaryButton";
 
 const FormPage = () => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const FormPage = () => {
     types: [],
   };
 
-  const [form, setform] = useState(INITIAL_FORM);
+  const [form, setForm] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({
     name: "",
     image: "",
@@ -42,6 +43,9 @@ const FormPage = () => {
     weight: "",
     types: "",
   });
+
+  // console.log("FORMULARIO", form);
+  // console.log("ERRORS", errors);
 
   useEffect(() => {
     !types.length && dispatch(getTypes());
@@ -59,7 +63,7 @@ const FormPage = () => {
     ) {
       setLoading(true);
 
-      if (!form.image.startsWith("https://"))
+      if (!form.image.startsWith("https://res.cloudinary.com/"))
         form.image = "http://localhost:3001/images/whithout_image.webp";
 
       axios
@@ -73,14 +77,28 @@ const FormPage = () => {
           }, 4000);
           setShowNotification(true);
         });
-      setform(INITIAL_FORM);
+      setForm(INITIAL_FORM);
       dispatch(getPokemons());
     }
   };
 
+  const handleImageUrlCloudinary = (urlImageCloudinary) => {
+    setForm({
+      ...form,
+      image: urlImageCloudinary,
+    });
+
+    setErrors(
+      validations({
+        ...form,
+        image: urlImageCloudinary,
+      })
+    );
+  };
+
   const handleChangeType = (evt) => {
     if (evt.target.checked) {
-      setform({
+      setForm({
         ...form,
         types: [...form.types, evt.target.id],
       });
@@ -94,7 +112,7 @@ const FormPage = () => {
       const indexType = form.types.findIndex((t) => t === evt.target.id);
       const typesMod = [...form.types];
       typesMod.splice(indexType, 1);
-      setform({
+      setForm({
         ...form,
         types: typesMod,
       });
@@ -108,7 +126,7 @@ const FormPage = () => {
   };
 
   const handleChange = (evt) => {
-    setform({
+    setForm({
       ...form,
       [evt.target.name]: evt.target.value,
     });
@@ -120,20 +138,13 @@ const FormPage = () => {
     );
   };
 
-  console.log(form.image);
-
-  const handleChangeImage = (evt) => {
-    console.log(evt.target.files[0]);
-  };
-
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
-        alignContent: "center",
-        position: "relative",
+        justifyItems: "center",
+        alignItems: "center",
       }}
     >
       {showNotification && (
@@ -142,16 +153,17 @@ const FormPage = () => {
           showMessageStatus={showMessageStatus}
         />
       )}
+
+      <h1 style={{ margin: "10px auto" }}>Create Pokemon</h1>
       <button
-        style={{ width: "fit-content", margin: "auto", marginTop: "15px" }}
-        type="button"
+        style={{ width: "fit-content", margin: "auto", marginBottom: "15px" }}
         disabled={loading}
         className={loading ? styles.blocked : ""}
         onClick={() => navigationApiTransition(navigate, "/home")}
       >
         Back
       </button>
-      <h1 style={{ margin: "10px auto" }}>Create Pokemon</h1>
+
       <form
         className={styles.form}
         onSubmit={handleSubmit}
@@ -170,35 +182,6 @@ const FormPage = () => {
               />
               <div className={styles.notivalerror}>
                 {errors.name && <ErrorForm formError={errors.name} />}
-              </div>
-            </label>
-            {/* 
-            <label htmlFor="image">
-              <span>Image:</span>
-              <input
-                type="text"
-                name="image"
-                value={form.image}
-                onChange={handleChange}
-                disabled={loading}
-              />
-              <div className={styles.notivalerror}>
-                {errors.image && <ErrorForm formError={errors.image} />}
-              </div>
-            </label> */}
-
-            <label htmlFor="image">
-              <span>Image:</span>
-              <input
-                className={styles.inputimage}
-                type="file"
-                name="image"
-                value={form.image}
-                onChange={handleChangeImage}
-                disabled={loading}
-              />
-              <div className={styles.notivalerror}>
-                {errors.image && <ErrorForm formError={errors.image} />}
               </div>
             </label>
 
@@ -312,6 +295,20 @@ const FormPage = () => {
             </div>
           </div>
         </div>
+        <div className={styles.imagecloud}>
+          <div>
+            <span className={styles.spanimage}>Image:</span>
+          </div>
+          <div>
+            <CloudinaryButton
+              loading={loading}
+              handleImageUrlCloudinary={handleImageUrlCloudinary}
+            />
+          </div>
+          <div className={styles.notivalerror2}>
+            {errors.image && <ErrorForm formError={errors.image} />}
+          </div>
+        </div>
         <div
           style={{
             display: "flex",
@@ -329,7 +326,7 @@ const FormPage = () => {
           <button
             type="button"
             disabled={loading}
-            onClick={() => setform(INITIAL_FORM)}
+            onClick={() => setForm(INITIAL_FORM)}
             className={loading ? styles.blocked : ""}
           >
             Clear
