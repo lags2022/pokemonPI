@@ -7,6 +7,7 @@ import FormPage from "./components/FormPage/FormPage";
 import { useNavigate } from "react-router-dom";
 import { navigationApiTransition } from "./utils/navigationApiTransition";
 
+console.log("probando")
 function App() {
   const navigate = useNavigate();
 
